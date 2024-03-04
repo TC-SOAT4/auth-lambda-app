@@ -18,6 +18,7 @@ Resources:
   HelloWorldFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
+      Role: arn:aws:iam::992382735228:role/LabRole
       CodeUri: HelloWorldFunction
       Handler: helloworld.App::handleRequest
       Runtime: java17
@@ -44,6 +45,6 @@ Outputs:
   HelloWorldFunction:
     Description: Hello World Lambda Function ARN
     Value: !GetAtt HelloWorldFunction.Arn
-  HelloWorldFunctionIamRole:
-    Description: Implicit IAM Role created for Hello World function
-    Value: !GetAtt HelloWorldFunctionRole.Arn
+  #HelloWorldFunctionIamRole:
+    #Description: Implicit IAM Role created for Hello World function
+    #Value: !GetAtt HelloWorldFunctionRole.Arn
