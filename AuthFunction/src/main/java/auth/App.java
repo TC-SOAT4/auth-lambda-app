@@ -1,4 +1,4 @@
-package helloworld;
+package auth;
 
 import java.io.BufferedReader;
 import java.io.IOException;
