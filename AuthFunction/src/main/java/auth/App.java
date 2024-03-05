@@ -44,8 +44,6 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
 
             String output = signin(parameters.get("username"), parameters.get("password"));
 
-            output = parameters.values().toString();
-
             return response
                     .withStatusCode(200)
                     .withBody(output);
