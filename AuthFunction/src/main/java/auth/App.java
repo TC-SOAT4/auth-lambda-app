@@ -30,6 +30,8 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
     private String ACCESS_KEY = "ASIA6ODU62N6BC2RHUJV";
     private String SECRET_KEY = "IjSRkM/WAxz3txzFJEAj2xP81M5SRAS/3YSTjDFB";
 
+    
+
     public APIGatewayProxyResponseEvent handleRequest(final APIGatewayProxyRequestEvent input, final Context context) {
         Map<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "application/json");
@@ -39,7 +41,9 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
                 .withHeaders(headers);
 
         try {
-            String output = signin("01367610389", "123456");
+            // String output = signin("01367610389", "123456");
+
+            String output = input.getBody();
 
             return response
                     .withStatusCode(200)
