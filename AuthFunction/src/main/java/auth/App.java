@@ -43,7 +43,9 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
         try {
             // String output = signin("01367610389", "123456");
 
-            String output = input.getBody();
+            String output = "";
+
+            output = input.getBody();
 
             return response
                     .withStatusCode(200)
