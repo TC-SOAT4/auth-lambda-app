@@ -36,6 +36,7 @@ jobs:
         
   deploy:
     name: Deploy AWS
+    needs: sonar
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
