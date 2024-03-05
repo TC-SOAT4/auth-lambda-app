@@ -1,19 +1,24 @@
 package auth;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
-
-import javax.swing.plaf.synth.Region;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
+import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.cognitoidentityprovider.CognitoIdentityProviderClient;
+import software.amazon.awssdk.services.cognitoidentityprovider.model.AuthFlowType;
+import software.amazon.awssdk.services.cognitoidentityprovider.model.AuthenticationResultType;
+import software.amazon.awssdk.services.cognitoidentityprovider.model.InitiateAuthRequest;
+import software.amazon.awssdk.services.cognitoidentityprovider.model.InitiateAuthResponse;
 
 /**
  * Handler for requests to Lambda function.
@@ -35,19 +40,19 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
                 .withHeaders(headers);
 
         try {
-            String output = signin("01367610389", 123456);
+            String output = signin("01367610389", "123456");
 
             return response
                     .withStatusCode(200)
                     .withBody(output);
-        } catch (IOException e) {
+        } catch (Exception e) {
             return response
                     .withBody("{}")
                     .withStatusCode(500);
         }
     }
 
-    private signin(String username, String password) {
+    private String signin(String username, String password) throws JsonProcessingException {
 
         CognitoIdentityProviderClient providerClient = buildCognitoIdentityProviderClient();
         InitiateAuthRequest authRequest = buildInitiateAuthRequest(username, password);
@@ -61,25 +66,19 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
          AuthenticationResultType authenticationResult = authResponse.authenticationResult();
          String accessToken = authenticationResult.accessToken();
          String idToken = authenticationResult.idToken();
-         String refreshToken = authenticationResult.refreshToken();
+        //  String refreshToken = authenticationResult.refreshToken();
 
          responseHash.put("idToken", idToken);
          responseHash.put("accessToken", accessToken);
          
         //  responseHash.put("refreshToken", refreshToken);
+        ObjectMapper objectMapper = new ObjectMapper();
 
-        output = objectMapper.writeValueAsString(responseHash);
+        return objectMapper.writeValueAsString(responseHash);
     }
 
-    private String getPageContents(String address) throws IOException {
-        URL url = new URL(address);
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()))) {
-            return br.lines().collect(Collectors.joining(System.lineSeparator()));
-        }
-    }
-
-    private buildBredentialsProvider() {
-        return  StaticCredentialsProvider.create(
+    private StaticCredentialsProvider buildBredentialsProvider() {
+        return StaticCredentialsProvider.create(
             AwsBasicCredentials.create(ACCESS_KEY, SECRET_KEY));
     }
 

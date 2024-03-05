@@ -1,6 +1,9 @@
 package helloworld;
 
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
+
+import auth.App;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -15,8 +18,7 @@ public class AppTest {
     assertEquals("application/json", result.getHeaders().get("Content-Type"));
     String content = result.getBody();
     assertNotNull(content);
-    assertTrue(content.contains("\"message\""));
-    assertTrue(content.contains("\"hello world\""));
-    assertTrue(content.contains("\"location\""));
+    
+    assertTrue(content.contains("\"accessToken\""));
   }
 }
