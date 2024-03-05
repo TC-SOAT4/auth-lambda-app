@@ -13,8 +13,6 @@
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
      
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>com.amazonaws</groupId>
