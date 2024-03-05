@@ -40,13 +40,9 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
                 .withHeaders(headers);
 
         try {
-            // String output = signin("01367610389", "123456");
+            HashMap<String, String> parameters = (HashMap<String, String>) input.getQueryStringParameters();
 
-            String output = "";
-
-            // output = input.getBody();
-
-            HashMap<String, List<String>> parameters = (HashMap<String, List<String>>) input.getMultiValueQueryStringParameters();
+            String output = signin(parameters.get("username"), parameters.get("password"));
 
             output = parameters.values().toString();
 
