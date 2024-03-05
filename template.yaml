@@ -41,7 +41,7 @@ Outputs:
   # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
   AuthApi:
     Description: API Gateway endpoint URL for Prod stage for Auth Lambda function
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/auth/"
   AuthFunction:
     Description: Auth Lambda Function ARN
     Value: !GetAtt AuthFunction.Arn
