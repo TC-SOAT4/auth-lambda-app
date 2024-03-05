@@ -1,6 +1,7 @@
 package auth;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.amazonaws.services.lambda.runtime.Context;
@@ -30,8 +31,6 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
     private String ACCESS_KEY = "ASIA6ODU62N6BC2RHUJV";
     private String SECRET_KEY = "IjSRkM/WAxz3txzFJEAj2xP81M5SRAS/3YSTjDFB";
 
-    
-
     public APIGatewayProxyResponseEvent handleRequest(final APIGatewayProxyRequestEvent input, final Context context) {
         Map<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "application/json");
@@ -45,7 +44,11 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
 
             String output = "";
 
-            output = input.getBody();
+            // output = input.getBody();
+
+            HashMap<String, List<String>> parameters = (HashMap<String, List<String>>) input.getMultiValueQueryStringParameters();
+
+            output = parameters.values().toString();
 
             return response
                     .withStatusCode(200)
