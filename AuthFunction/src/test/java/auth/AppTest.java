@@ -1,15 +1,12 @@
-package helloworld;
-
-import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
-
-import auth.App;
+package auth;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 import org.junit.Ignore;
 import org.junit.Test;
+
+import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
 
 public class AppTest {
   @Test

@@ -1,7 +1,6 @@
 package auth;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import com.amazonaws.services.lambda.runtime.Context;
@@ -25,11 +24,9 @@ import software.amazon.awssdk.services.cognitoidentityprovider.model.InitiateAut
  */
 public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
 
-    private String POOL_ID = "us-east-1_J0znZkNqF";
-    private String CLIENT_ID = "1tontnuuutfv33u6jvnisclb10";
-
-    private String ACCESS_KEY = "ASIA6ODU62N6BC2RHUJV";
-    private String SECRET_KEY = "IjSRkM/WAxz3txzFJEAj2xP81M5SRAS/3YSTjDFB";
+    String ACCESS_KEY = System.getenv("ACCESS_KEY");
+    String SECRET_KEY = System.getenv("SECRET_KEY");
+    String CLIENT_ID = System.getenv("CLIENT_ID");
 
     public APIGatewayProxyResponseEvent handleRequest(final APIGatewayProxyRequestEvent input, final Context context) {
         Map<String, String> headers = new HashMap<>();
@@ -80,6 +77,7 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
     }
 
     private StaticCredentialsProvider buildBredentialsProvider() {
+       
         return StaticCredentialsProvider.create(
             AwsBasicCredentials.create(ACCESS_KEY, SECRET_KEY));
     }
