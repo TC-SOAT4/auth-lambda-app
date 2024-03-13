@@ -18,7 +18,7 @@ Resources:
   AuthFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
-      Role: arn:aws:iam::992382735228:role/LabRole
+      Role: arn:aws:iam::992382735228:role/LabRole 
       CodeUri: AuthFunction
       Handler: auth.App::handleRequest
       Runtime: java17
@@ -27,7 +27,9 @@ Resources:
       MemorySize: 512
       Environment: # More info about Env Vars: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#environment-object
         Variables:
-          PARAM1: VALUE
+          ACCESS_KEY: VALUE
+          SECRET_KEY: VALUE
+          CLIENT_ID: VALUE
       Events:
         Auth:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
