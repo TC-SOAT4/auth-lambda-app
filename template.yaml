@@ -47,3 +47,4 @@ Outputs:
   AuthFunction:
     Description: Auth Lambda Function ARN
     Value: !GetAtt AuthFunction.Arn
+    
